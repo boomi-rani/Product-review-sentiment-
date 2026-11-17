@@ -1,0 +1,554 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Review Analysis | ReviewSense</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', Arial, sans-serif;
+            background: #f5f6f8;
+            color: #202938;
+        }
+
+        .layout {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 245px;
+            background: #17243a;
+            color: white;
+            padding: 28px 20px;
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+        }
+
+        .brand {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 42px;
+            letter-spacing: -0.6px;
+        }
+
+        .brand span {
+            color: #8eb5d9;
+        }
+
+        .nav-label {
+            color: #8492a7;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin: 0 0 14px 10px;
+        }
+
+        .nav a {
+            display: block;
+            padding: 12px 13px;
+            margin-bottom: 5px;
+            color: #bdc8d7;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .nav a:hover,
+        .nav a.active {
+            background: #293a53;
+            color: white;
+        }
+
+        .account {
+            margin-top: auto;
+            border-top: 1px solid #354258;
+            padding-top: 20px;
+        }
+
+        .account small {
+            display: block;
+            color: #9ba9bb;
+            font-size: 12px;
+            margin-bottom: 5px;
+        }
+
+        .account strong {
+            font-size: 14px;
+        }
+
+        .account a {
+            display: block;
+            color: #bdc8d7;
+            text-decoration: none;
+            font-size: 13px;
+            margin-top: 15px;
+        }
+
+        .main {
+            flex: 1;
+            padding: 34px 42px;
+            min-width: 0;
+        }
+
+        .topbar {
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            font-size: 25px;
+            letter-spacing: -0.6px;
+        }
+
+        .topbar p {
+            color: #778397;
+            font-size: 13px;
+            margin-top: 6px;
+        }
+
+        .workspace {
+            display: grid;
+            grid-template-columns: minmax(0, 1.5fr) minmax(260px, 0.8fr);
+            gap: 22px;
+            align-items: start;
+        }
+
+        .panel {
+            background: white;
+            border: 1px solid #e7eaf0;
+            border-radius: 9px;
+            padding: 26px;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+
+        .description {
+            color: #8792a3;
+            font-size: 13px;
+            line-height: 1.6;
+            margin-bottom: 22px;
+        }
+
+        label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 9px;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 190px;
+            resize: vertical;
+            border: 1px solid #dce1e8;
+            border-radius: 6px;
+            padding: 15px;
+            font-family: inherit;
+            font-size: 14px;
+            line-height: 1.6;
+            outline: none;
+            color: #34445c;
+        }
+
+        textarea:focus {
+            border-color: #829dbd;
+            box-shadow: 0 0 0 3px #829dbd22;
+        }
+
+        textarea::placeholder {
+            color: #a1aab7;
+        }
+
+        .helper {
+            display: flex;
+            justify-content: space-between;
+            color: #929cab;
+            font-size: 11px;
+            margin-top: 8px;
+        }
+
+        .button {
+            margin-top: 22px;
+            padding: 12px 20px;
+            background: #243b59;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background: #304f75;
+        }
+
+        .button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .result {
+            display: none;
+            margin-top: 22px;
+            padding: 20px;
+            border-radius: 7px;
+            background: #f7f9fc;
+            border: 1px solid #e3e9f0;
+        }
+
+        .result-label {
+            color: #8792a3;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.7px;
+            margin-bottom: 8px;
+        }
+
+        .sentiment {
+            font-size: 23px;
+            font-weight: 700;
+        }
+
+        .sentiment.Positive {
+            color: #23845d;
+        }
+
+        .sentiment.Negative {
+            color: #c34f4f;
+        }
+
+        .sentiment.Neutral {
+            color: #a07832;
+        }
+
+        .result-review {
+            font-size: 13px;
+            color: #657286;
+            line-height: 1.6;
+            margin-top: 12px;
+            overflow-wrap: anywhere;
+        }
+
+        .error {
+            display: none;
+            margin-top: 15px;
+            color: #b74444;
+            font-size: 13px;
+            background: #fff3f2;
+            padding: 12px;
+            border-radius: 5px;
+        }
+
+        .info-card {
+            background: white;
+            border: 1px solid #e7eaf0;
+            border-radius: 9px;
+            padding: 23px;
+            margin-bottom: 20px;
+        }
+
+        .info-card h2 {
+            margin-bottom: 15px;
+        }
+
+        .step {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 17px;
+        }
+
+        .step-number {
+            width: 25px;
+            height: 25px;
+            flex-shrink: 0;
+            border-radius: 50%;
+            background: #edf1f6;
+            color: #34445c;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .step strong {
+            font-size: 13px;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .step p {
+            font-size: 12px;
+            color: #8792a3;
+            line-height: 1.5;
+        }
+
+        .model-note {
+            background: #f7f9fc;
+            border-left: 3px solid #829dbd;
+            padding: 15px;
+            color: #66758a;
+            font-size: 12px;
+            line-height: 1.6;
+            border-radius: 3px;
+        }
+
+        @media (max-width: 900px) {
+            .workspace {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .layout {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                padding: 18px;
+            }
+
+            .brand {
+                margin-bottom: 20px;
+            }
+
+            .nav {
+                display: flex;
+                flex-wrap: wrap;
+            }
+
+            .nav-label {
+                width: 100%;
+            }
+
+            .nav a {
+                margin-right: 5px;
+            }
+
+            .account {
+                margin-top: 15px;
+            }
+
+            .main {
+                padding: 25px 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<div class="layout">
+
+    <aside class="sidebar">
+        <div class="brand">Review<span>Sense</span></div>
+
+        <div class="nav-label">WORKSPACE</div>
+
+        <nav class="nav">
+            <a href="/dashboard">Dashboard</a>
+            <a href="/analysis" class="active">Review Analysis</a>
+            <a href="/reports">Reports & Profile</a>
+        </nav>
+
+        <div class="account">
+            <small>ACCOUNT</small>
+            <strong>{{ session.get('username', 'User') }}</strong>
+            <a href="/logout">Sign out →</a>
+        </div>
+    </aside>
+
+    <main class="main">
+
+        <div class="topbar">
+            <h1>Review Analysis</h1>
+            <p>Understand customer opinions through machine learning-based sentiment classification.</p>
+        </div>
+
+        <div class="workspace">
+
+            <section class="panel">
+                <h2>Analyse a Product Review</h2>
+                <p class="description">
+                    Enter a customer review below. ReviewSense will process the text
+                    and classify its overall sentiment using the trained machine learning model.
+                </p>
+
+                <form id="analysisForm">
+                    <label for="review">Customer Review</label>
+
+                    <textarea
+                        id="review"
+                        name="review"
+                        placeholder="Example: The fabric quality is excellent and the product fits perfectly. I am very satisfied with this purchase."
+                        required
+                    ></textarea>
+
+                    <div class="helper">
+                        <span>Enter the review text you want to analyse.</span>
+                        <span id="charCount">0 characters</span>
+                    </div>
+
+                    <button type="submit" class="button" id="analyseButton">
+                        Analyse Review →
+                    </button>
+                </form>
+
+                <div class="error" id="errorMessage"></div>
+
+                <div class="result" id="resultPanel">
+                    <div class="result-label">PREDICTED SENTIMENT</div>
+                    <div class="sentiment" id="sentimentValue"></div>
+                    <p class="result-review" id="reviewValue"></p>
+                </div>
+            </section>
+
+            <div>
+                <section class="info-card">
+                    <h2>How it works</h2>
+
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div>
+                            <strong>Enter Review</strong>
+                            <p>Provide the product feedback you want to evaluate.</p>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div>
+                            <strong>Text Processing</strong>
+                            <p>The review is cleaned and transformed into numerical features using TF-IDF.</p>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div>
+                            <strong>Sentiment Prediction</strong>
+                            <p>The trained machine learning model predicts the sentiment category.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="info-card">
+                    <h2>Classification Categories</h2>
+
+                    <div class="step">
+                        <div class="step-number">+</div>
+                        <div>
+                            <strong>Positive</strong>
+                            <p>Favourable customer feedback.</p>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <div class="step-number">−</div>
+                        <div>
+                            <strong>Negative</strong>
+                            <p>Unfavourable customer feedback.</p>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <div class="step-number">=</div>
+                        <div>
+                            <strong>Neutral</strong>
+                            <p>Neither clearly positive nor negative feedback.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="model-note">
+                    Predictions are generated using the machine learning model
+                    trained on the Women's Clothing E-Commerce Reviews dataset.
+                </div>
+            </div>
+
+        </div>
+    </main>
+</div>
+
+<script>
+    const reviewInput = document.getElementById("review");
+    const charCount = document.getElementById("charCount");
+    const form = document.getElementById("analysisForm");
+    const button = document.getElementById("analyseButton");
+    const resultPanel = document.getElementById("resultPanel");
+    const errorMessage = document.getElementById("errorMessage");
+
+    reviewInput.addEventListener("input", function () {
+        charCount.textContent = this.value.length + " characters";
+    });
+
+    form.addEventListener("submit", async function (event) {
+        event.preventDefault();
+
+        const review = reviewInput.value.trim();
+
+        resultPanel.style.display = "none";
+        errorMessage.style.display = "none";
+
+        if (!review) {
+            showError("Please enter a product review.");
+            return;
+        }
+
+        button.disabled = true;
+        button.textContent = "Analysing...";
+
+        try {
+            const response = await fetch("/predict", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ review: review })
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.error || "Unable to analyse this review.");
+            }
+
+            const sentiment = String(data.sentiment);
+
+            document.getElementById("sentimentValue").textContent = sentiment;
+            document.getElementById("sentimentValue").className = "sentiment " + sentiment;
+            document.getElementById("reviewValue").textContent = data.review;
+
+            resultPanel.style.display = "block";
+
+        } catch (error) {
+            showError(error.message);
+        } finally {
+            button.disabled = false;
+            button.textContent = "Analyse Review →";
+        }
+    });
+
+    function showError(message) {
+        errorMessage.textContent = message;
+        errorMessage.style.display = "block";
+    }
+</script>
+
+</body>
+</html>

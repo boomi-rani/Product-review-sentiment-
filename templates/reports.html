@@ -1,0 +1,435 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reports & Profile | ReviewSense</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', Arial, sans-serif;
+            background: #f5f6f8;
+            color: #202938;
+        }
+
+        .layout {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 245px;
+            background: #17243a;
+            color: #fff;
+            padding: 28px 20px;
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+        }
+
+        .brand {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 42px;
+            letter-spacing: -0.6px;
+        }
+
+        .brand span {
+            color: #8eb5d9;
+        }
+
+        .nav-label {
+            color: #8492a7;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin: 0 0 14px 10px;
+        }
+
+        .nav a {
+            display: block;
+            padding: 12px 13px;
+            margin-bottom: 5px;
+            color: #bdc8d7;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .nav a:hover,
+        .nav a.active {
+            background: #293a53;
+            color: #fff;
+        }
+
+        .account {
+            margin-top: auto;
+            border-top: 1px solid #354258;
+            padding-top: 20px;
+        }
+
+        .account small {
+            display: block;
+            color: #9ba9bb;
+            font-size: 12px;
+            margin-bottom: 5px;
+        }
+
+        .account strong {
+            font-size: 14px;
+        }
+
+        .account a {
+            display: block;
+            color: #bdc8d7;
+            text-decoration: none;
+            font-size: 13px;
+            margin-top: 15px;
+        }
+
+        .main {
+            flex: 1;
+            padding: 34px 42px;
+            min-width: 0;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+
+        .topbar p {
+            color: #778397;
+            font-size: 13px;
+            margin-top: 5px;
+        }
+
+        .user-tag {
+            background: #e9eef5;
+            padding: 9px 15px;
+            border-radius: 5px;
+            font-size: 13px;
+            color: #34445c;
+        }
+
+        h1 {
+            font-size: 25px;
+            letter-spacing: -0.6px;
+            font-weight: 700;
+        }
+
+        .section {
+            background: #fff;
+            border: 1px solid #e7eaf0;
+            border-radius: 9px;
+            padding: 24px;
+            margin-bottom: 22px;
+        }
+
+        .section-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            gap: 12px;
+        }
+
+        h2 {
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .muted {
+            color: #8792a3;
+            font-size: 13px;
+            margin-top: 5px;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 10px 15px;
+            background: #243b59;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 13px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background: #304f75;
+        }
+
+        .button.secondary {
+            background: #edf1f6;
+            color: #34445c;
+        }
+
+        .table-wrap {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 520px;
+        }
+
+        th {
+            text-align: left;
+            color: #8490a1;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 13px 10px;
+            border-bottom: 1px solid #e9edf2;
+        }
+
+        td {
+            padding: 15px 10px;
+            border-bottom: 1px solid #edf0f4;
+            font-size: 13px;
+            color: #526074;
+        }
+
+        .empty {
+            text-align: center;
+            padding: 42px 15px;
+            color: #8792a3;
+        }
+
+        .empty strong {
+            display: block;
+            color: #34445c;
+            font-size: 14px;
+            margin-bottom: 7px;
+        }
+
+        .empty p {
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .profile-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+
+        .profile-item {
+            padding: 15px;
+            background: #f7f8fa;
+            border-radius: 6px;
+        }
+
+        .profile-item label {
+            display: block;
+            color: #8792a3;
+            font-size: 12px;
+            margin-bottom: 7px;
+        }
+
+        .profile-item p {
+            color: #34445c;
+            font-size: 14px;
+            font-weight: 600;
+            overflow-wrap: anywhere;
+        }
+
+        .report-note {
+            background: #f7f9fc;
+            border-left: 3px solid #829dbd;
+            padding: 15px 17px;
+            border-radius: 3px;
+            color: #66758a;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 850px) {
+            .sidebar {
+                width: 190px;
+            }
+
+            .main {
+                padding: 25px 20px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .layout {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                padding: 18px;
+            }
+
+            .brand {
+                margin-bottom: 20px;
+            }
+
+            .nav {
+                display: flex;
+                flex-wrap: wrap;
+            }
+
+            .nav-label {
+                width: 100%;
+            }
+
+            .nav a {
+                margin-right: 5px;
+            }
+
+            .account {
+                margin-top: 15px;
+            }
+
+            .profile-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .topbar {
+                align-items: flex-start;
+                gap: 12px;
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<div class="layout">
+
+    <aside class="sidebar">
+        <div class="brand">Review<span>Sense</span></div>
+
+        <div class="nav-label">WORKSPACE</div>
+
+        <nav class="nav">
+            <a href="/dashboard">Dashboard</a>
+            <a href="/analysis">Review Analysis</a>
+            <a href="/reports" class="active">Reports & Profile</a>
+        </nav>
+
+        <div class="account">
+            <small>ACCOUNT</small>
+            <strong>{{ session.get('username', 'User') }}</strong>
+            <a href="/logout">Sign out →</a>
+        </div>
+    </aside>
+
+    <main class="main">
+
+        <div class="topbar">
+            <div>
+                <h1>Reports & Profile</h1>
+                <p>Review your activity and manage your account information.</p>
+            </div>
+            <div class="user-tag">Personal Workspace</div>
+        </div>
+
+        <section class="section">
+            <div class="section-heading">
+                <div>
+                    <h2>Analysis History</h2>
+                    <p class="muted">A record of reviews you have analysed.</p>
+                </div>
+                <a href="/analysis" class="button">New Analysis</a>
+            </div>
+
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Review</th>
+                            <th>Sentiment</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if history %}
+                            {% for item in history %}
+                            <tr>
+                                <td>{{ item.review }}</td>
+                                <td>{{ item.sentiment }}</td>
+                                <td>{{ item.created_at }}</td>
+                            </tr>
+                            {% endfor %}
+                        {% else %}
+                            <tr>
+                                <td colspan="3">
+                                    <div class="empty">
+                                        <strong>No analysis records yet</strong>
+                                        <p>Your analysed reviews will appear here once history tracking is connected.</p>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-heading">
+                <div>
+                    <h2>Reports</h2>
+                    <p class="muted">Access summaries of your sentiment analysis activity.</p>
+                </div>
+            </div>
+
+            <div class="report-note">
+                Reports will become available after review history and report generation are connected.
+                Your reports will be based on actual reviews analysed through ReviewSense.
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-heading">
+                <div>
+                    <h2>Account Information</h2>
+                    <p class="muted">Your registered account details.</p>
+                </div>
+            </div>
+
+            <div class="profile-grid">
+                <div class="profile-item">
+                    <label>Username</label>
+                    <p>{{ session.get('username', 'Not available') }}</p>
+                </div>
+
+                <div class="profile-item">
+                    <label>Account ID</label>
+                    <p>{{ session.get('user_id', 'Not available') }}</p>
+                </div>
+
+                <div class="profile-item">
+                    <label>Application</label>
+                    <p>ReviewSense</p>
+                </div>
+
+                <div class="profile-item">
+                    <label>Account Status</label>
+                    <p>Active</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+</div>
+</body>
+</html>

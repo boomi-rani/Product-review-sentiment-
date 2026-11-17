@@ -1,0 +1,388 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In | ReviewSense</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            background: #f4f6fa;
+            color: #17243a;
+        }
+
+        .left-panel {
+            width: 46%;
+            background: #172b4d;
+            color: white;
+            padding: 65px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .brand {
+            font-size: 26px;
+            font-weight: 700;
+        }
+
+        .brand span {
+            color: #78a9ff;
+        }
+
+        .intro h1 {
+            font-size: 39px;
+            line-height: 1.3;
+            margin-bottom: 20px;
+        }
+
+        .intro p {
+            color: #c4d0e2;
+            font-size: 15px;
+            line-height: 1.8;
+            max-width: 420px;
+        }
+
+        .footer {
+            color: #aebbd0;
+            font-size: 12px;
+        }
+
+        .right-panel {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 35px;
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .login-container h2 {
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #778397;
+            font-size: 14px;
+            margin-bottom: 35px;
+        }
+
+        .form-group {
+            margin-bottom: 22px;
+        }
+
+        label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 9px;
+        }
+
+        input[type="email"],
+        input[type="password"],
+        input[type="text"] {
+            width: 100%;
+            height: 48px;
+            border: 1px solid #dce2eb;
+            border-radius: 6px;
+            padding: 0 13px;
+            font-size: 14px;
+            outline: none;
+            background: white;
+        }
+
+        input:focus {
+            border-color: #3976d9;
+            box-shadow: 0 0 0 3px rgba(57, 118, 217, 0.10);
+        }
+
+        .password-wrapper {
+            position: relative;
+        }
+
+        .password-wrapper input {
+            padding-right: 65px;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 13px;
+            top: 16px;
+            border: none;
+            background: transparent;
+            color: #245fba;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 5px 0 27px;
+            font-size: 12px;
+        }
+
+        .remember {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            color: #68768a;
+        }
+
+        .remember input {
+            accent-color: #245fba;
+        }
+
+        a {
+            color: #245fba;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .login-btn {
+            width: 100%;
+            height: 48px;
+            border: none;
+            border-radius: 6px;
+            background: #245fba;
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .login-btn:hover {
+            background: #194e9e;
+        }
+
+        .login-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        .message {
+            font-size: 13px;
+            text-align: center;
+            margin-top: 15px;
+            min-height: 18px;
+        }
+
+        .signup {
+            text-align: center;
+            margin-top: 27px;
+            font-size: 13px;
+            color: #778397;
+        }
+
+        @media (max-width: 750px) {
+            .left-panel {
+                display: none;
+            }
+
+            .right-panel {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <section class="left-panel">
+
+        <div class="brand">
+            Review<span>Sense</span>
+        </div>
+
+        <div class="intro">
+            <h1>Welcome back to ReviewSense.</h1>
+
+            <p>
+                Understand customer opinions through intelligent
+                sentiment analysis. Sign in to continue exploring
+                insights from product reviews.
+            </p>
+        </div>
+
+        <div class="footer">
+            Product Review Intelligence Platform
+        </div>
+
+    </section>
+
+    <section class="right-panel">
+
+        <div class="login-container">
+
+            <h2>Sign in</h2>
+
+            <p class="subtitle">
+                Enter your account details to continue.
+            </p>
+
+            <form id="loginForm">
+
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="name@example.com"
+                        autocomplete="email"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+
+                    <div class="password-wrapper">
+
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            placeholder="Enter your password"
+                            autocomplete="current-password"
+                            required
+                        >
+
+                        <button
+                            type="button"
+                            class="toggle-password"
+                            id="togglePassword"
+                        >
+                            Show
+                        </button>
+
+                    </div>
+                </div>
+
+                <div class="form-options">
+
+                    <label class="remember">
+                        <input type="checkbox" name="remember">
+                        Remember me
+                    </label>
+
+                    <a href="/forgot-password">
+                        Forgot password?
+                    </a>
+
+                </div>
+
+                <button type="submit" class="login-btn">
+                    Sign In
+                </button>
+
+                <p class="message" id="message"></p>
+
+            </form>
+
+            <div class="signup">
+                Don't have an account?
+                <a href="/register">Create an account</a>
+            </div>
+
+        </div>
+
+    </section>
+
+    <script>
+
+        const passwordInput = document.getElementById("password");
+        const toggleButton = document.getElementById("togglePassword");
+
+        toggleButton.addEventListener("click", function() {
+
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                toggleButton.textContent = "Hide";
+            } else {
+                passwordInput.type = "password";
+                toggleButton.textContent = "Show";
+            }
+
+        });
+
+        document.getElementById("loginForm").addEventListener("submit", async function(event) {
+
+            event.preventDefault();
+
+            const formData = new FormData(this);
+            const message = document.getElementById("message");
+            const loginButton = document.querySelector(".login-btn");
+
+            message.textContent = "";
+            loginButton.disabled = true;
+            loginButton.textContent = "Signing in...";
+
+            try {
+
+                const response = await fetch("/login", {
+                    method: "POST",
+                    body: formData
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+
+                    message.style.color = "#16834a";
+                    message.textContent = "Login successful!";
+
+                    setTimeout(function() {
+                        window.location.href = result.redirect || "/dashboard";
+                    }, 1000);
+
+                } else {
+
+                    message.style.color = "#d13b3b";
+                    message.textContent = result.error || "Login failed.";
+
+                }
+
+            } catch (error) {
+
+                message.style.color = "#d13b3b";
+                message.textContent = "Unable to connect to the server.";
+
+            } finally {
+
+                if (!responseIsRedirecting()) {
+                    loginButton.disabled = false;
+                    loginButton.textContent = "Sign In";
+                }
+
+            }
+
+            function responseIsRedirecting() {
+                return message.textContent === "Login successful!";
+            }
+
+        });
+
+    </script>
+
+</body>
+</html>

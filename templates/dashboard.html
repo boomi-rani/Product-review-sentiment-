@@ -1,0 +1,547 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | ReviewSense</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: #f5f6f8;
+            color: #202b3c;
+        }
+
+        .layout { display: flex; min-height: 100vh; }
+
+        .sidebar {
+            width: 245px;
+            background: #17283f;
+            color: #ffffff;
+            padding: 28px 17px;
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+        }
+
+        .brand { padding: 0 12px 35px; }
+        .brand h2 {
+            font-family: 'Manrope', sans-serif;
+            font-size: 23px;
+            letter-spacing: -0.8px;
+        }
+        .brand p {
+            color: #91a1b5;
+            font-size: 10px;
+            letter-spacing: 1.5px;
+            margin-top: 4px;
+        }
+
+        .menu-label {
+            color: #8394aa;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1.4px;
+            padding: 0 13px;
+            margin-bottom: 12px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            text-decoration: none;
+            color: #b8c4d2;
+            padding: 12px 13px;
+            border-radius: 7px;
+            font-size: 13px;
+            margin-bottom: 5px;
+            transition: 0.2s;
+        }
+
+        .nav-link:hover { background: #263a54; color: #ffffff; }
+        .nav-link.active { background: #294767; color: #ffffff; font-weight: 600; }
+        .nav-icon { width: 18px; text-align: center; font-size: 16px; }
+
+        .sidebar-bottom {
+            margin-top: auto;
+            border-top: 1px solid #304157;
+            padding: 20px 10px 0;
+        }
+
+        .account { display: flex; align-items: center; gap: 11px; margin-bottom: 20px; }
+        .avatar {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: #dce7f2;
+            color: #25496b;
+            display: grid;
+            place-items: center;
+            font-weight: 700;
+            font-size: 13px;
+        }
+
+        .account-info strong { font-size: 12px; display: block; }
+        .account-info span { color: #94a5b8; font-size: 10px; }
+
+        .main { flex: 1; min-width: 0; }
+
+        .topbar {
+            height: 76px;
+            background: #ffffff;
+            border-bottom: 1px solid #e8ebef;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 38px;
+        }
+
+        .breadcrumb { color: #8994a3; font-size: 12px; }
+        .breadcrumb strong { color: #26364a; font-weight: 600; }
+        .date-label { color: #7b8796; font-size: 12px; }
+
+        .content { max-width: 1450px; padding: 34px 38px; margin: auto; }
+
+        .welcome {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 29px;
+            gap: 15px;
+        }
+
+        .welcome h1 {
+            font-family: 'Manrope', sans-serif;
+            font-size: 25px;
+            letter-spacing: -0.8px;
+            color: #1d2d42;
+        }
+
+        .welcome p { font-size: 13px; color: #84909e; margin-top: 7px; }
+
+        .primary-btn {
+            background: #285b85;
+            color: white;
+            text-decoration: none;
+            border: none;
+            border-radius: 6px;
+            padding: 11px 17px;
+            font-size: 12px;
+            font-family: inherit;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .primary-btn:hover { background: #1e496f; }
+
+        .section-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 14px;
+        }
+
+        .section-heading h3 { font-size: 14px; font-weight: 700; color: #26364a; }
+        .section-heading span { color: #8994a3; font-size: 11px; }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 29px;
+        }
+
+        .stat-card {
+            background: #ffffff;
+            border: 1px solid #e9edf1;
+            border-radius: 8px;
+            padding: 19px;
+            min-height: 124px;
+        }
+
+        .stat-top { display: flex; justify-content: space-between; align-items: center; }
+        .stat-label { color: #7d8998; font-size: 11px; font-weight: 500; }
+
+        .stat-symbol {
+            width: 30px;
+            height: 30px;
+            display: grid;
+            place-items: center;
+            border-radius: 6px;
+            font-size: 15px;
+        }
+
+        .blue { background: #eaf1f8; color: #37658e; }
+        .green { background: #e8f4ed; color: #39805b; }
+        .red { background: #f9ebeb; color: #b65353; }
+        .amber { background: #f8f1e5; color: #a47b36; }
+
+        .stat-value {
+            font-family: 'Manrope', sans-serif;
+            font-size: 27px;
+            font-weight: 700;
+            margin-top: 13px;
+            color: #25374b;
+        }
+
+        .stat-note { color: #98a2ae; font-size: 10px; margin-top: 3px; }
+
+        .analytics-grid {
+            display: grid;
+            grid-template-columns: 1.4fr 1fr;
+            gap: 17px;
+            margin-bottom: 27px;
+        }
+
+        .panel {
+            background: #ffffff;
+            border: 1px solid #e9edf1;
+            border-radius: 8px;
+            padding: 21px;
+            min-width: 0;
+        }
+
+        .panel-title { font-size: 13px; font-weight: 700; color: #2b3a4d; }
+        .panel-subtitle { font-size: 11px; color: #929daa; margin-top: 5px; }
+
+        .chart-placeholder {
+            height: 175px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #98a3af;
+            text-align: center;
+            gap: 8px;
+        }
+
+        .chart-placeholder .chart-symbol { font-size: 27px; color: #a7b7c7; }
+        .chart-placeholder p { font-size: 12px; }
+        .chart-placeholder small { font-size: 10px; color: #a5aeb9; }
+
+        .sentiment-list { margin-top: 23px; }
+        .sentiment-row { margin-bottom: 19px; }
+
+        .sentiment-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            margin-bottom: 8px;
+        }
+
+        .sentiment-info span:first-child { color: #667587; }
+        .sentiment-info strong { color: #35465a; }
+
+        .progress {
+            height: 7px;
+            border-radius: 10px;
+            background: #edf0f3;
+            overflow: hidden;
+        }
+
+        .progress div { height: 100%; border-radius: 10px; }
+        .positive-bar { background: #579879; }
+        .negative-bar { background: #ca7777; }
+        .neutral-bar { background: #c8a25e; }
+
+        .bottom-grid {
+            display: grid;
+            grid-template-columns: 1.4fr 1fr;
+            gap: 17px;
+        }
+
+        .empty-state { padding: 34px 12px; text-align: center; color: #929daa; }
+        .empty-state .empty-icon { font-size: 24px; margin-bottom: 10px; }
+        .empty-state p { font-size: 12px; }
+        .empty-state small { display: block; font-size: 10px; margin-top: 6px; }
+
+        .dataset-details {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid #edf0f3;
+            padding: 13px 0;
+            font-size: 11px;
+        }
+
+        .dataset-details:last-child { border: none; }
+        .dataset-details span { color: #8290a0; }
+        .dataset-details strong { color: #34475c; font-weight: 600; }
+
+        .footer { padding: 25px 0 5px; text-align: center; color: #a1aab5; font-size: 10px; }
+
+        @media (max-width: 1050px) {
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .analytics-grid, .bottom-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 700px) {
+            .sidebar { width: 65px; padding: 22px 8px; }
+            .brand { padding: 0 0 30px; text-align: center; }
+            .brand h2 { font-size: 17px; }
+            .brand p, .menu-label, .nav-text, .account-info { display: none; }
+            .nav-link { justify-content: center; padding: 12px 5px; }
+            .sidebar-bottom { padding: 15px 0 0; }
+            .account { justify-content: center; }
+            .topbar { padding: 0 17px; }
+            .date-label { display: none; }
+            .content { padding: 25px 17px; }
+            .welcome { align-items: flex-start; flex-direction: column; }
+            .welcome h1 { font-size: 21px; }
+            .stats-grid { gap: 10px; }
+            .stat-card { padding: 13px; }
+            .stat-value { font-size: 22px; }
+        }
+
+        @media (max-width: 390px) {
+            .stats-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+
+<body>
+
+{% set total = stats.total or 0 %}
+{% set positive = stats.positive or 0 %}
+{% set negative = stats.negative or 0 %}
+{% set neutral = stats.neutral or 0 %}
+
+{% set positive_pct = (positive / total * 100) if total else 0 %}
+{% set negative_pct = (negative / total * 100) if total else 0 %}
+{% set neutral_pct = (neutral / total * 100) if total else 0 %}
+
+<div class="layout">
+
+    <aside class="sidebar">
+        <div class="brand">
+            <h2>ReviewSense</h2>
+            <p>REVIEW INTELLIGENCE</p>
+        </div>
+
+        <div class="menu-label">WORKSPACE</div>
+
+        <nav>
+            <a href="/dashboard" class="nav-link active">
+                <span class="nav-icon">▦</span>
+                <span class="nav-text">Dashboard</span>
+            </a>
+            <a href="/analysis" class="nav-link">
+                <span class="nav-icon">⌕</span>
+                <span class="nav-text">Review Analysis</span>
+            </a>
+            <a href="/reports" class="nav-link">
+                <span class="nav-icon">▤</span>
+                <span class="nav-text">Reports</span>
+            </a>
+        </nav>
+
+        <div class="menu-label" style="margin-top: 30px;">ACCOUNT</div>
+
+        <nav>
+            <a href="/logout" class="nav-link">
+                <span class="nav-icon">↪</span>
+                <span class="nav-text">Logout</span>
+            </a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="account">
+                <div class="avatar">RS</div>
+                <div class="account-info">
+                    <strong>ReviewSense User</strong>
+                    <span>Personal workspace</span>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <main class="main">
+        <header class="topbar">
+            <div class="breadcrumb">Workspace / <strong>Dashboard</strong></div>
+            <div class="topbar-right">
+                <span class="date-label" id="currentDate"></span>
+            </div>
+        </header>
+
+        <div class="content">
+
+            <section class="welcome">
+                <div>
+                    <h1>Dashboard Overview</h1>
+                    <p>Monitor customer feedback and sentiment performance.</p>
+                </div>
+                <a href="/analysis" class="primary-btn">+ Analyse a Review</a>
+            </section>
+
+            <div class="section-heading">
+                <h3>My Analysis</h3>
+                <span>Personal review activity</span>
+            </div>
+
+            <section class="stats-grid">
+
+                <div class="stat-card">
+                    <div class="stat-top">
+                        <span class="stat-label">Reviews Analysed</span>
+                        <span class="stat-symbol blue">▤</span>
+                    </div>
+                    <div class="stat-value">{{ total }}</div>
+                    <div class="stat-note">Total reviews analysed by you</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-top">
+                        <span class="stat-label">Positive Reviews</span>
+                        <span class="stat-symbol green">↗</span>
+                    </div>
+                    <div class="stat-value">{{ positive }}</div>
+                    <div class="stat-note">Positive sentiment predictions</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-top">
+                        <span class="stat-label">Negative Reviews</span>
+                        <span class="stat-symbol red">↘</span>
+                    </div>
+                    <div class="stat-value">{{ negative }}</div>
+                    <div class="stat-note">Negative sentiment predictions</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-top">
+                        <span class="stat-label">Neutral Reviews</span>
+                        <span class="stat-symbol amber">—</span>
+                    </div>
+                    <div class="stat-value">{{ neutral }}</div>
+                    <div class="stat-note">Neutral sentiment predictions</div>
+                </div>
+
+            </section>
+
+            <div class="section-heading">
+                <h3>Sentiment Analytics</h3>
+                <span>Based on analysed reviews</span>
+            </div>
+
+            <section class="analytics-grid">
+
+                <div class="panel">
+                    <div class="panel-title">Review Activity</div>
+                    <div class="panel-subtitle">Sentiment analysis activity over time</div>
+
+                    <div class="chart-placeholder">
+                        <div class="chart-symbol">▥</div>
+                        <p>No activity chart available yet</p>
+                        <small>Your review history is recorded in the reports section.</small>
+                    </div>
+                </div>
+
+                <div class="panel">
+                    <div class="panel-title">Sentiment Distribution</div>
+                    <div class="panel-subtitle">Breakdown of your analysed reviews</div>
+
+                    <div class="sentiment-list">
+
+                        <div class="sentiment-row">
+                            <div class="sentiment-info">
+                                <span>Positive</span>
+                                <strong>{{ positive }} ({{ "%.1f"|format(positive_pct) }}%)</strong>
+                            </div>
+                            <div class="progress">
+                                <div class="positive-bar" style="width: {{ positive_pct }}%;"></div>
+                            </div>
+                        </div>
+
+                        <div class="sentiment-row">
+                            <div class="sentiment-info">
+                                <span>Negative</span>
+                                <strong>{{ negative }} ({{ "%.1f"|format(negative_pct) }}%)</strong>
+                            </div>
+                            <div class="progress">
+                                <div class="negative-bar" style="width: {{ negative_pct }}%;"></div>
+                            </div>
+                        </div>
+
+                        <div class="sentiment-row">
+                            <div class="sentiment-info">
+                                <span>Neutral</span>
+                                <strong>{{ neutral }} ({{ "%.1f"|format(neutral_pct) }}%)</strong>
+                            </div>
+                            <div class="progress">
+                                <div class="neutral-bar" style="width: {{ neutral_pct }}%;"></div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </section>
+
+            <div class="section-heading">
+                <h3>Dataset Overview</h3>
+                <span>Training dataset insights</span>
+            </div>
+
+            <section class="bottom-grid">
+
+                <div class="panel">
+                    <div class="panel-title">Recent Analysis</div>
+                    <div class="panel-subtitle">Your recently submitted customer reviews</div>
+
+                    <div class="empty-state">
+                        <div class="empty-icon">▤</div>
+                        <p>No recent analysis displayed here yet</p>
+                        <small>View your submitted reviews in the Reports section.</small>
+                    </div>
+                </div>
+
+                <div class="panel">
+                    <div class="panel-title">Training Dataset</div>
+                    <div class="panel-subtitle">Women's Clothing E-Commerce Reviews</div>
+
+                    <div style="margin-top: 17px;">
+                        <div class="dataset-details">
+                            <span>Dataset records</span>
+                            <strong>23,486</strong>
+                        </div>
+                        <div class="dataset-details">
+                            <span>Source</span>
+                            <strong>Kaggle</strong>
+                        </div>
+                        <div class="dataset-details">
+                            <span>Text feature</span>
+                            <strong>Review Text</strong>
+                        </div>
+                        <div class="dataset-details">
+                            <span>Classification</span>
+                            <strong>3 Sentiments</strong>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+            <footer class="footer">
+                ReviewSense &copy; 2026. Product Review Intelligence System.
+            </footer>
+
+        </div>
+    </main>
+</div>
+
+<script>
+    const today = new Date();
+
+    document.getElementById("currentDate").textContent =
+        today.toLocaleDateString("en-IN", {
+            day: "numeric",
+            month: "long",
+            year: "numeric"
+        });
+</script>
+
+</body>
+</html>

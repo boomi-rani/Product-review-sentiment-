@@ -1,0 +1,288 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReviewSense</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', Arial, sans-serif;
+            min-height: 100vh;
+            background: #f3f5f8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 25px;
+        }
+
+        .welcome {
+            width: 100%;
+            max-width: 1100px;
+            min-height: 590px;
+            display: grid;
+            grid-template-columns: 1.05fr 0.95fr;
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #e6eaf0;
+            box-shadow: 0 15px 45px rgba(27, 43, 65, 0.06);
+        }
+
+        .left {
+            padding: 55px 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .brand {
+            font-size: 23px;
+            font-weight: 700;
+            color: #203149;
+            letter-spacing: -0.7px;
+        }
+
+        .brand span {
+            color: #7898ba;
+        }
+
+        .content {
+            margin: 55px 0;
+        }
+
+        .eyebrow {
+            color: #7898ba;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: clamp(38px, 4vw, 53px);
+            line-height: 1.15;
+            letter-spacing: -2px;
+            color: #1d2b40;
+            margin-bottom: 20px;
+        }
+
+        .subtitle {
+            font-size: 15px;
+            color: #8792a3;
+            margin-bottom: 34px;
+        }
+
+        .enter {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 24px;
+            background: #243b59;
+            color: #fff;
+            padding: 15px 22px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+
+        .enter:hover {
+            background: #345477;
+        }
+
+        .footer {
+            color: #a1aab6;
+            font-size: 11px;
+        }
+
+        .right {
+            background: #1d3049;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 45px;
+        }
+
+        .visual {
+            width: 100%;
+            max-width: 390px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .visual-heading {
+            color: #dce6f1;
+            font-size: 12px;
+            letter-spacing: 1.5px;
+            font-weight: 600;
+            margin-bottom: 25px;
+        }
+
+        .review-card {
+            background: #fff;
+            border-radius: 9px;
+            padding: 23px;
+            margin-bottom: 14px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+        }
+
+        .review-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .review-top strong {
+            color: #293950;
+            font-size: 13px;
+        }
+
+        .tag {
+            font-size: 10px;
+            font-weight: 700;
+            padding: 6px 9px;
+            border-radius: 4px;
+        }
+
+        .positive {
+            background: #e6f3ec;
+            color: #32815c;
+        }
+
+        .negative {
+            background: #faeaea;
+            color: #bb5555;
+        }
+
+        .neutral {
+            background: #f5efdf;
+            color: #96783b;
+        }
+
+        .review-text {
+            color: #7c8899;
+            font-size: 12px;
+            line-height: 1.7;
+        }
+
+        .background-circle {
+            position: absolute;
+            width: 370px;
+            height: 370px;
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 50%;
+            top: -150px;
+            right: -130px;
+        }
+
+        .background-circle.second {
+            width: 500px;
+            height: 500px;
+            top: auto;
+            right: auto;
+            bottom: -320px;
+            left: -230px;
+        }
+
+        @media (max-width: 800px) {
+            .welcome {
+                grid-template-columns: 1fr;
+            }
+
+            .left {
+                min-height: 470px;
+                padding: 40px 30px;
+            }
+
+            .right {
+                min-height: 420px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="welcome">
+
+        <section class="left">
+
+            <div class="brand">Review<span>Sense</span></div>
+
+            <div class="content">
+                <div class="eyebrow">WELCOME TO REVIEWSENSE</div>
+
+                <h1>Every Review<br>Has a Story.</h1>
+
+                <p class="subtitle">Customer Feedback Intelligence</p>
+
+                <a href="/login" class="enter">
+                    Enter Workspace <span>→</span>
+                </a>
+            </div>
+
+            <div class="footer">
+                ReviewSense © 2026
+            </div>
+
+        </section>
+
+        <section class="right">
+
+            <div class="background-circle"></div>
+            <div class="background-circle second"></div>
+
+            <div class="visual">
+
+                <div class="visual-heading">SENTIMENT OVERVIEW</div>
+
+                <div class="review-card">
+                    <div class="review-top">
+                        <strong>Customer Review</strong>
+                        <span class="tag positive">POSITIVE</span>
+                    </div>
+                    <p class="review-text">
+                        "Excellent quality and perfect fitting. Really happy with this purchase."
+                    </p>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-top">
+                        <strong>Customer Review</strong>
+                        <span class="tag negative">NEGATIVE</span>
+                    </div>
+                    <p class="review-text">
+                        "The material was disappointing and the product did not meet expectations."
+                    </p>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-top">
+                        <strong>Customer Review</strong>
+                        <span class="tag neutral">NEUTRAL</span>
+                    </div>
+                    <p class="review-text">
+                        "The product is similar to the description. Nothing particularly special."
+                    </p>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</body>
+</html>
